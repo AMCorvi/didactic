@@ -4,14 +4,29 @@ var _express = require("express");
 
 var _express2 = _interopRequireDefault(_express);
 
+var _path = require("path");
+
+var _path2 = _interopRequireDefault(_path);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//Initialze Express
 var app = (0, _express2.default)();
 
+/**
+ * Plugin View Engine
+ * @returns {HTML Template} Using Pug(Jade)
+ */
+app.set("views", _path2.default.join(__dirname, "..", "views"));
+
+app.set("view engine", "pug");
+
+//Base Route
 app.get("/", function (req, res) {
-    res.send("These violent delights have violent ends");
+  res.render("index");
 });
 
-app.listen(3000, function () {
-    return console.log("Server started on Port :3000");
+//Spin-up Server
+app.listen(8000, function () {
+  return console.log("Server started on Port :8000");
 });
