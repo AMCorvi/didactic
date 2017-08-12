@@ -1,0 +1,99 @@
+doctype html
+html
+  head
+    // Standard Meta
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0')
+    // Site Properties
+    title Login - Covidae Corp.
+    link(rel='stylesheet', type='text/css', href='./components/semantic/dist/components/reset.css')
+    link(rel='stylesheet', type='text/css', href='./components/semantic/dist/components/site.css')
+    link(rel='stylesheet', type='text/css', href='./components/semantic/dist/components/container.css')
+    link(rel='stylesheet', type='text/css', href='./components/semantic/dist/components/grid.css')
+    link(rel='stylesheet', type='text/css', href='./components/semantic/dist/components/header.css')
+    link(rel='stylesheet', type='text/css', href='./components/semantic/dist/components/image.css')
+    link(rel='stylesheet', type='text/css', href='./components/semantic/dist/components/menu.css')
+    link(rel='stylesheet', type='text/css', href='./components/semantic/dist/components/divider.css')
+    link(rel='stylesheet', type='text/css', href='./components/semantic/dist/components/segment.css')
+    link(rel='stylesheet', type='text/css', href='./components/semantic/dist/components/form.css')
+    link(rel='stylesheet', type='text/css', href='./components/semantic/dist/components/input.css')
+    link(rel='stylesheet', type='text/css', href='./components/semantic/dist/components/button.css')
+    link(rel='stylesheet', type='text/css', href='./components/semantic/dist/components/list.css')
+    link(rel='stylesheet', type='text/css', href='./components/semantic/dist/components/message.css')
+    link(rel='stylesheet', type='text/css', href='./components/semantic/dist/components/icon.css')
+    script(src='./components/jquery/dist/jquery.slim.min.js')
+    script(src='./components/semantic/dist/components/form.js')
+    script(src='./components/semantic/dist/components/transition.js')
+    style(type='text/css').
+      body {
+      background: linear-gradient(to bottom, #22c1c3, #fdbb2d);
+      }
+      body > .grid {
+      height: 100%;
+      }
+      .image {
+      margin-top: -100px;
+      }
+      .column {
+      max-width: 450px;
+      }
+    script.
+      $(document)
+      .ready(function() {
+      $('.ui.form')
+      .form({
+      fields: {
+      email: {
+      identifier  : 'email',
+      rules: [
+      {
+      type   : 'empty',
+      prompt : 'Please enter your e-mail'
+      },
+      {
+      type   : 'email',
+      prompt : 'Please enter a valid e-mail'
+      }
+      ]
+      },
+      password: {
+      identifier  : 'password',
+      rules: [
+      {
+      type   : 'empty',
+      prompt : 'Please enter your password'
+      },
+      {
+      type   : 'length[6]',
+      prompt : 'Your password must be at least 6 characters'
+      }
+      ]
+      }
+      }
+      })
+      ;
+      })
+      ;
+  body
+    .ui.middle.aligned.center.aligned.grid
+      .column
+        h2.ui.orange.image.large.circular.header
+          img.image(src='./assets/images/corvidaeLogo.png')
+          .content Log-in to your account
+        form.ui.large.form
+          .ui.stacked.segment
+            .field
+              .ui.left.icon.input
+                i.user.icon
+                input(type='text', name='email', placeholder='E-mail address')
+            .field
+              .ui.left.icon.input
+                i.lock.icon
+                input(type='password', name='password', placeholder='Password')
+            .ui.fluid.large.orange.submit.button Login
+          .ui.error.message
+        .ui.message
+          | New to us? &nbsp
+          a(href='/signup') Sign Up
+

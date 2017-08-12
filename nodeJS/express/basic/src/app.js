@@ -1,9 +1,22 @@
 import express from "express";
+import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import path from "path";
 
+
 //Initialze Express
 const app = express();
+
+
+mongoose.connect("mongodb://localhost/expressBasic");
+
+let db = mongoose.connection;
+db.on("error", err => console.error.bind(console, err));
+db.once("open", () => console.log("Server made successful connection to the database. "));
+
+// Bring in database models
+import User from "./models/UserModel.js";
+
 
 /*
  * Plugin View Engine
@@ -12,7 +25,7 @@ const app = express();
 app.set("views", path.join(__dirname, "..", "views"));
 app.set("view engine", "pug");
 
-/* Parse request body into json */
+/* Parse request body to json and URL encoded data*/
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -29,15 +42,36 @@ app.get("/", (req, res) => {
 
 //Login Page Route
 app.get("/login", (req, res) => {
-    res.send("This is the login page");
+    res.render("login");
 });
 
 //Sign-up Page Route
 app.get("/signup", (req, res) => {
-    res.send("This is the sign-up page");
+    res.render("signup");
 });
 
+// Post Submition from sign-in
+app.post("/signup", (req, res) => {
+    const user = new User();
+
+    user.email = req.body.email;
+    user.password = req.body.password;
+    console.log(user.password);
+
+    user.save((err) => {
+        if(err){
+            console.error(err);
+            return res.redirect("/signup");
+        }
+
+        delete user.password;
+        res.render("success", {
+            message: `${user.email} SignUp was successful`
+        });
+    });
+
+});
 
 //Spin-up Server
-app.listen(80, () => console.log(" Server is running @ http://localhost"));
+app.listen(80, () => console.log("\n\nServer is running @ http://localhost"));
 
